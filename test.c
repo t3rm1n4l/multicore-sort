@@ -7,9 +7,9 @@ static int *gen_workload(size_t n) {
     int i = 0;
     int *load = calloc(n, sizeof(int));
 
-    srand(time(NULL));
+    srand(10876430);
     for (i = 0; i < n; i++) {
-        load[i] = rand() % n;
+        load[i] = rand();
     }
 
     return load;
@@ -31,6 +31,8 @@ static int cmp(void *thunk, const void *a, const void *b) {
 int main(int argc, char **argv) {
 
     int *load;
+    long unsigned  t;
+    size_t i, j, chunksz;
     size_t n, ncores;
     if (argc != 3) {
         fprintf(stderr, "Usage: %s ncores items\n", argv[0]);
@@ -42,13 +44,18 @@ int main(int argc, char **argv) {
 
     load = gen_workload(n);
 
-    printf("Unsorted:\n");
-    print(load, n);
+    /*printf("Unsorted:\n");*/
+    /*print(load, n);*/
 
+
+
+
+    t = time(NULL);
     mc_sort(ncores, load, n, sizeof(int), NULL, cmp);
+    printf("Time taken for sorting: %lu s\n", time(NULL) - t);
 
-    printf("Sorted:\n");
-    print(load, n);
+    /*printf("Sorted:\n");*/
+    /*print(load, n);*/
 
     return 0;
 }

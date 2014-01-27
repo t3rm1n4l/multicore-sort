@@ -17,4 +17,6 @@ int mc_sort(size_t cores, void *base, size_t n, size_t width,
                                                  void *thunk,
                                                  comparator_fn cmp);
 
+void split(void *items, size_t n, size_t width, void *thunk, comparator_fn cmp);
+
 #endif
